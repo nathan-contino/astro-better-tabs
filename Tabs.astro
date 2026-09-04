@@ -39,7 +39,7 @@ html = html.replace(/name="%%TAB_GROUP%%"/g, () => {
     // activate the checked panel, hide the rest
     const activate = () =>
       panels.forEach((panel, i) => {
-        panel.style.display = inputs[i]?.checked ? '' : 'none';
+        panel.style.display = inputs[i]?.checked ? 'block' : 'none';
       });
 
     inputs.forEach(input => input.addEventListener('change', activate));
