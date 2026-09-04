@@ -22,34 +22,51 @@ const markdownifiedLabel = remark.parseInline(label);
 
 <label
   for={id}
-  class="tab-label px-4 py-1.5 my-1 ml-1 text-sm font-medium rounded-md cursor-pointer transition-all whitespace-nowrap text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+  class="tab-label px-4 py-1.5 my-1 ml-1 text-sm font-medium rounded-md cursor-pointer transition-all text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
 >
   <span set:html={markdownifiedLabel} />
 </label>
 
-<div class="tab-panel p-4 border-t">
+<div class="tab-panel">
   <slot />
 </div>
 
 <style is:global>
   @reference "tailwindcss";
 
-  /* structural layout — explicit so these don't depend on Tailwind scanning node_modules */
-  .tab-label  { order: 1; }
-  .tab-spacer { order: 1; flex-grow: 1; }
-  .tab-panel  { order: 2; width: 100%; display: none; }
-
-  .tab-input:checked + .tab-label + .tab-panel { display: block; }
-
-  /* panel colors — light mode */
-  .tab-panel {
-    @apply bg-white border-gray-200;
+  /* container */
+  .tabs-group {
+    @apply my-8 border rounded-xl overflow-hidden;
+    @apply border-gray-200 bg-gray-100;
+  }
+  .dark .tabs-group {
+    @apply border-gray-700 bg-gray-800/50;
   }
 
-  /* panel colors — dark mode */
+  /* scrollable tab bar — nowrap so tabs never move to a second row */
+  .tab-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    align-items: stretch;
+  }
+
+  /* spacer fills remaining tab bar width */
+  .tab-spacer { flex-grow: 1; flex-shrink: 0; }
+
+  /* panels — hidden by default; JS shows the active one */
+  .tab-panel {
+    display: none;
+    width: 100%;
+    @apply p-4 bg-white border-t border-gray-200;
+  }
   .dark .tab-panel {
     @apply bg-gray-900 border-gray-700;
   }
+
+  /* CSS-only fallback before JS reorganizes the DOM */
+  .tab-input:checked + .tab-label + .tab-panel { display: block; }
 
   /* active tab label — light mode */
   .tab-input:checked + .tab-label {

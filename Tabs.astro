@@ -14,7 +14,41 @@ html = html.replace(/name="%%TAB_GROUP%%"/g, () => {
 });
 ---
 
-<div class="tabs-group flex flex-wrap my-8 border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800/50">
+<div class="tabs-group">
   <Fragment set:html={html} />
   <div class="tab-spacer"></div>
 </div>
+
+<script>
+  function initTabGroup(group: HTMLElement) {
+    const inputs = Array.from(group.querySelectorAll<HTMLInputElement>(':scope > .tab-input'));
+    const labels = Array.from(group.querySelectorAll<HTMLElement>(':scope > .tab-label'));
+    const panels = Array.from(group.querySelectorAll<HTMLElement>(':scope > .tab-panel'));
+    const spacer = group.querySelector<HTMLElement>(':scope > .tab-spacer');
+    if (!inputs.length) return;
+
+    // build a scrollable tab bar
+    const bar = document.createElement('div');
+    bar.className = 'tab-bar';
+    inputs.forEach((input, i) => {
+      bar.appendChild(input);
+      if (labels[i]) bar.appendChild(labels[i]);
+    });
+    if (spacer) bar.appendChild(spacer);
+
+    // activate the checked panel, hide the rest
+    const activate = () =>
+      panels.forEach((panel, i) => {
+        panel.style.display = inputs[i]?.checked ? '' : 'none';
+      });
+
+    inputs.forEach(input => input.addEventListener('change', activate));
+
+    group.innerHTML = '';
+    group.appendChild(bar);
+    panels.forEach(panel => group.appendChild(panel));
+    activate();
+  }
+
+  document.querySelectorAll<HTMLElement>('.tabs-group').forEach(initTabGroup);
+</script>
