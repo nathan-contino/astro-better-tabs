@@ -1,0 +1,17 @@
+{
+  "name": "astro-better-tabs",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./Tabs.astro": "./Tabs.astro",
+    "./TabItem.astro": "./TabItem.astro"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "dependencies": {
+    "marked": "^17.0.0"
+  },
+  "keywords": ["astro", "tabs", "tabbed", "docs"],
+  "license": "MIT"
+}
