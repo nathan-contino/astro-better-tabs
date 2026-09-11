@@ -37,10 +37,8 @@ const markdownifiedLabel = remark.parseInline(label);
   /* container */
   .tabs-group {
     @apply my-8 border rounded-xl overflow-hidden;
-    @apply border-gray-200 bg-gray-100;
-  }
-  .dark .tabs-group {
-    @apply border-gray-700 bg-gray-800/50;
+    border-color: var(--tabs-border, #e5e7eb);
+    background-color: var(--tabs-bg, #f3f4f6);
   }
 
   /* scrollable tab bar — nowrap so tabs never move to a second row */
@@ -59,25 +57,18 @@ const markdownifiedLabel = remark.parseInline(label);
   .tab-panel {
     display: none;
     width: 100%;
-    @apply p-4 bg-white border-t border-gray-200;
-  }
-  .dark .tab-panel {
-    @apply bg-gray-900 border-gray-700;
+    @apply p-4 border-t;
+    background-color: var(--tabs-panel-bg, #ffffff);
+    border-color: var(--tabs-panel-border, #e5e7eb);
   }
 
   /* CSS-only fallback before JS reorganizes the DOM */
   .tab-input:checked + .tab-label + .tab-panel { display: block; }
 
-  /* active tab label — light mode */
+  /* active tab label */
   .tab-input:checked + .tab-label {
-    @apply bg-white text-gray-900 font-bold shadow-sm;
-  }
-
-  /* active tab label — dark mode */
-  .dark .tab-input:checked + .tab-label {
-    @apply bg-gray-700 text-blue-400 font-bold shadow-sm;
-  }
-  .dark .tab-input:checked + .tab-label > span {
-    @apply text-blue-200;
+    @apply font-bold shadow-sm;
+    background-color: var(--tabs-active-bg, #ffffff);
+    color: var(--tabs-active-color, #111827);
   }
 </style>

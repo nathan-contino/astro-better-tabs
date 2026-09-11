@@ -1,0 +1,21 @@
+/* astro-better-tabs/style.css
+   CSS custom properties for theming. Import this in your global stylesheet,
+   then override the vars on .tabs-group or .dark .tabs-group. */
+
+.tabs-group {
+  --tabs-bg:           #f3f4f6;
+  --tabs-border:       #e5e7eb;
+  --tabs-panel-bg:     #ffffff;
+  --tabs-panel-border: #e5e7eb;
+  --tabs-active-bg:    #ffffff;
+  --tabs-active-color: #111827;
+}
+
+.dark .tabs-group {
+  --tabs-bg:           rgba(31, 41, 55, 0.5);
+  --tabs-border:       #374151;
+  --tabs-panel-bg:     #111827;
+  --tabs-panel-border: #374151;
+  --tabs-active-bg:    #374151;
+  --tabs-active-color: #60a5fa;
+}

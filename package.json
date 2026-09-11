@@ -1,8 +1,10 @@
 {
   "name": "astro-better-tabs",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "type": "module",
   "exports": {
+    ".": "./style.css",
+    "./style.css": "./style.css",
     "./Tabs.astro": "./Tabs.astro",
     "./TabItem.astro": "./TabItem.astro"
   },
