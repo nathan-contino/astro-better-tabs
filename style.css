@@ -12,10 +12,10 @@
 }
 
 .dark .tabs-group {
-  --tabs-bg:           rgba(31, 41, 55, 0.5);
-  --tabs-border:       #374151;
-  --tabs-panel-bg:     #111827;
-  --tabs-panel-border: #374151;
-  --tabs-active-bg:    #374151;
-  --tabs-active-color: #60a5fa;
+  --tabs-bg:           #1e293b;
+  --tabs-border:       #334155;
+  --tabs-panel-bg:     #0f172a;
+  --tabs-panel-border: #334155;
+  --tabs-active-bg:    #0f172a;
+  --tabs-active-color: #e2e8f0;
 }

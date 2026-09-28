@@ -51,11 +51,7 @@ const markdownifiedLabel = remark.parseInline(label);
     scrollbar-width: thin;
     align-items: stretch;
     gap: 0.25rem;
-    background-color: #e5e7eb;
-  }
-
-  html.dark .tab-bar {
-    background-color: #1e293b;
+    background-color: var(--tabs-bg, #e5e7eb);
   }
 
   /* prose styles set explicit color on spans, beating CSS inheritance — must target spans directly */
@@ -118,12 +114,4 @@ const markdownifiedLabel = remark.parseInline(label);
     margin-bottom: 0;
   }
 
-  /* dark mode — panel/active matches site bg; tab bar is slightly lighter for contrast */
-  html.dark .tabs-group {
-    --tabs-bg: #1e293b;
-    --tabs-border: #334155;
-    --tabs-panel-bg: #0f172a;
-    --tabs-active-bg: #0f172a;
-    --tabs-active-color: #e2e8f0;
-  }
 </style>
