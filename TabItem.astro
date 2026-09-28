@@ -13,19 +13,21 @@ const remark = new Marked();
 const markdownifiedLabel = remark.parseInline(label);
 ---
 
-<input
-  type="radio"
-  name="%%TAB_GROUP%%"
-  id={id}
-  class="tab-input sr-only"
-/>
+<div class="tab-bar-item">
+  <input
+    type="radio"
+    name="%%TAB_GROUP%%"
+    id={id}
+    class="tab-input sr-only"
+  />
 
-<label
-  for={id}
-  class="tab-label px-4 py-1.5 my-1 ml-1 text-sm font-medium rounded-md cursor-pointer transition-all text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
->
-  <span set:html={markdownifiedLabel} />
-</label>
+  <label
+    for={id}
+    class="tab-label px-4 py-1.5 my-1 text-sm font-medium cursor-pointer transition-all"
+  >
+    <span set:html={markdownifiedLabel} />
+  </label>
+</div>
 
 <div class="tab-panel">
   <slot />
@@ -36,39 +38,92 @@ const markdownifiedLabel = remark.parseInline(label);
 
   /* container */
   .tabs-group {
-    @apply my-8 border rounded-xl overflow-hidden;
+    @apply my-8 border rounded-md overflow-hidden;
     border-color: var(--tabs-border, #e5e7eb);
-    background-color: var(--tabs-bg, #f3f4f6);
+    background-color: var(--tabs-bg, #e5e7eb);
   }
 
-  /* scrollable tab bar — nowrap so tabs never move to a second row */
+  /* scrollable tab bar */
   .tab-bar {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: thin;
     align-items: stretch;
+    gap: 0.25rem;
+    background-color: #e5e7eb;
   }
 
-  /* spacer fills remaining tab bar width */
-  .tab-spacer { flex-grow: 1; flex-shrink: 0; }
+  html.dark .tab-bar {
+    background-color: #1e293b;
+  }
 
-  /* panels — hidden by default; JS shows the active one */
+  /* prose styles set explicit color on spans, beating CSS inheritance — must target spans directly */
+  .tab-bar .tab-input:not(:checked) + .tab-label,
+  .tab-bar .tab-input:not(:checked) + .tab-label span {
+    color: #4b5563 !important;
+  }
+
+  .tab-bar .tab-input:not(:checked) + .tab-label:hover,
+  .tab-bar .tab-input:not(:checked) + .tab-label:hover span {
+    color: #ffffff !important;
+  }
+
+  html.dark .tab-bar .tab-input:not(:checked) + .tab-label,
+  html.dark .tab-bar .tab-input:not(:checked) + .tab-label span {
+    color: #94a3b8 !important;
+  }
+
+  html.dark .tab-bar .tab-input:checked + .tab-label span {
+    color: var(--tabs-active-color, #e2e8f0) !important;
+  }
+
+  /* panels — hidden by default; :has() shows the active one */
   .tab-panel {
     display: none;
     width: 100%;
-    @apply p-4 border-t;
+    padding: 5px 5px 2px;
     background-color: var(--tabs-panel-bg, #ffffff);
-    border-color: var(--tabs-panel-border, #e5e7eb);
   }
 
-  /* CSS-only fallback before JS reorganizes the DOM */
-  .tab-input:checked + .tab-label + .tab-panel { display: block; }
+  /* panel switching via :has() — direct-child combinators prevent outer rules from firing on nested groups */
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(1):checked) > .tab-panel:nth-of-type(1) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(2):checked) > .tab-panel:nth-of-type(2) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(3):checked) > .tab-panel:nth-of-type(3) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(4):checked) > .tab-panel:nth-of-type(4) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(5):checked) > .tab-panel:nth-of-type(5) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(6):checked) > .tab-panel:nth-of-type(6) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(7):checked) > .tab-panel:nth-of-type(7) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(8):checked) > .tab-panel:nth-of-type(8) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(9):checked) > .tab-panel:nth-of-type(9) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(10):checked) > .tab-panel:nth-of-type(10) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(11):checked) > .tab-panel:nth-of-type(11) { display: block; }
+  .tabs-group:has(> .tab-bar > .tab-input:nth-of-type(12):checked) > .tab-panel:nth-of-type(12) { display: block; }
 
-  /* active tab label */
+  /* 0.25rem < container's rounded-md (0.375rem): label bg covers the container's clip area */
+  /* flex-grow: 1 fills remaining bar space — no separate spacer needed */
+  .tab-label {
+    border-radius: 0.25rem 0.25rem 0 0;
+    flex-grow: 1;
+  }
+
+  /* strip bottom margin from nested tab groups — the panel's pb handles spacing */
+  .tab-panel .tabs-group { margin-bottom: 0; }
+
   .tab-input:checked + .tab-label {
-    @apply font-bold shadow-sm;
+    @apply font-bold;
     background-color: var(--tabs-active-bg, #ffffff);
     color: var(--tabs-active-color, #111827);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* dark mode — panel/active matches site bg; tab bar is slightly lighter for contrast */
+  html.dark .tabs-group {
+    --tabs-bg: #1e293b;
+    --tabs-border: #334155;
+    --tabs-panel-bg: #0f172a;
+    --tabs-active-bg: #0f172a;
+    --tabs-active-color: #e2e8f0;
   }
 </style>
