@@ -1,18 +1,36 @@
 {
   "name": "astro-better-tabs",
   "version": "1.0.2",
+  "keywords": [
+    "astro",
+    "tabs",
+    "tabbed",
+    "docs"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/better-static-sites/better-static-sites.github.io.git",
+    "directory": "astro-better-tabs"
+  },
+  "homepage": "https://better-static-sites.github.io",
+  "bugs": {
+    "url": "https://github.com/better-static-sites/better-static-sites.github.io/issues"
+  },
   "type": "module",
   "exports": {
     "./style.css": "./style.css",
     "./Tabs.astro": "./Tabs.astro",
     "./TabItem.astro": "./TabItem.astro"
   },
-  "peerDependencies": {
-    "astro": ">=4.0.0"
-  },
+  "files": [
+    "*.astro",
+    "style.css"
+  ],
   "dependencies": {
     "marked": "^17.0.0"
   },
-  "keywords": ["astro", "tabs", "tabbed", "docs"],
-  "license": "MIT"
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  }
 }
